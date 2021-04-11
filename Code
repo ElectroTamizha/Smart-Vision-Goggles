@@ -1,0 +1,58 @@
+void setup() {
+  pinMode(6,OUTPUT);//trig1    //   FOR
+  pinMode(2,INPUT);//echo1     //   Left
+  pinMode(4,INPUT);//echo2     //    FOR
+  pinMode(5,OUTPUT);//trig2    //   Right
+  pinMode(8,OUTPUT);        //  For Left 
+  pinMode(9,OUTPUT);        //   Motor
+  pinMode(10,OUTPUT);       // For Right
+  pinMode(11,OUTPUT);       //   Motor 
+  pinMode(7,OUTPUT);
+  digitalWrite(11,0);
+  digitalWrite(12,1);
+  digitalWrite(9,0);
+  Serial.begin(9600);
+  }
+
+void loop() {
+  long t1,t2,cm1,cm2;
+  digitalWrite(6,0);
+  delayMicroseconds(50);
+  digitalWrite(6,1);
+  delayMicroseconds(10);
+  digitalWrite(6,0);
+  t1=pulseIn(2,1); 
+  cm1=(t1/29)/2;
+  digitalWrite(5,0);
+  delayMicroseconds(50);
+  digitalWrite(5,1);
+  delayMicroseconds(10);
+  digitalWrite(5,0);
+  //Serial.println(micros());
+  t2=pulseIn(4,1); 
+  cm2=(t2/29)/2;
+  //Serial.print(cm1);
+  //Serial.print("cm\t");
+  //Serial.print(cm2);
+  //Serial.print("cm\n");
+  if(cm1<35)
+  {
+    //Serial.print("Left\n");
+    digitalWrite(8,1);
+    digitalWrite(7,1);
+         
+  }else{
+    digitalWrite(8,0);
+    digitalWrite(7,0);
+  }
+   if(cm2<35)
+  {
+   // Serial.print("right \n");
+    digitalWrite(10,1);
+    digitalWrite(7,1); 
+  }
+  else{
+    digitalWrite(10,0);
+    digitalWrite(7,0);
+  }
+}
